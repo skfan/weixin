@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8' />
+	<title>skfan test</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script type="text/javascript" src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
+	<style type="text/css">
+	body, html {
+		width: 100%;
+		height: auto;
+		margin: 0px;
+		padding: 0px;
+	}
+	.container {
+		width: 100%;
+		height: auto;
+	}
+	.s1 {
+		display: block;
+		text-align: center;
+	}
+	.s2 {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<div class='container'>
+		<!--pay-->
+		<section class='s1'>
+			<div>
+				<p>goods : apple, pear</p>
+				<p>price : $15</p>
+			</div>
+			<input type='button' value='pay'/>
+		</section>
+		<section class='s2'>
+			<div>cancle</div>
+			<div>confirm</div>
+		</section>
+	</div>
+	<script type="text/javascript" src='js/jquery.js'></script>
+	<script type="text/javascript">
+
+		$(function () {
+
+			var timestamp = Date.parse(new Date());
+			var nonceStr = 'ibuaiVcKdpRxkhJA';
+			var appid = 'wx9d3fe63d78f398ea';
+			var url ='http://139.129.26.67:8000/';
+			
+			$.ajax({
+				url: './getapitiket',
+				dataType: 'text',
+				success: function (data) {
+					console.log(data);
+					//                             
+					wx.config({
+					    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					    appId: appid, // 必填，公众号的唯一标识
+					    timestamp: timestamp, // 必填，生成签名的时间戳
+					    nonceStr: nonceStr, // 必填，生成签名的随机串
+					    signature: data,// 必填，签名，见附录1
+					    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+					});
+				},
+				error: function () {
+
+				}
+			});
+		});
+	</script>
+</body>
+</html>
