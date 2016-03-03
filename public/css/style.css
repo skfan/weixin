@@ -1,0 +1,31 @@
+html. body {
+	width: 100%;
+	height: auto;
+	margin: 0px;
+	padding: 0px;
+}
+
+.cotainer {
+	width: 100%;
+	height: auto;
+}
+
+.goods_order {
+	position: relative;
+	margin: 15px 20px;
+	border: 2px #eaeaea solid;
+}
+.goods_order > h3 {
+	text-align: center;
+}
+.goods_order p {
+	padding-left: 15px;	
+}
+.goods_order > a {
+	position: absolute;
+	top: 120%;
+	left: 50%;
+	width: 80px;
+	margin-left: -40px;
+	text-decoration: none;
+}

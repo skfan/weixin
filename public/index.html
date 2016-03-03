@@ -4,40 +4,30 @@
 	<meta charset='utf-8' />
 	<title>skfan test</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src='http://res.wx.qq.com/open/js/jweixin-1.0.0.js'></script>
-	<style type="text/css">
-	body, html {
-		width: 100%;
-		height: auto;
-		margin: 0px;
-		padding: 0px;
-	}
-	.container {
-		width: 100%;
-		height: auto;
-	}
-	.s1 {
-		display: block;
-		text-align: center;
-	}
-	.s2 {
-		display: none;
-	}
-	</style>
 </head>
 <body>
 	<div class='container'>
-		<!--pay-->
-		<section class='s1'>
-			<div>
-				<p>goods : apple, pear</p>
-				<p>price : $15</p>
-			</div>
-			<input type='button' value='pay'/>
+		<!--请求并生成支付订单-->
+		<section class='goods_order'>
+			<h3>购物单</h3>
+			<p><span>苹果: </span>10元</p>
+			<p><span>香蕉: </span>20元</p>
+			<p><span style='font-weight: 600;'>共计: </span>30元</p>
+			<a href='http://www.ecafe.pub/getCode' id='commit_order'>提交订单</a>
+		</section> 
+		<!--点击发起支付-->
+		<section>
+			
 		</section>
-		<section class='s2'>
-			<div>cancle</div>
-			<div>confirm</div>
+		<!--输入支付密码并确认-->
+		<section>
+			
+		</section>
+		<!--返回支付结果-->
+		<section>
+			
 		</section>
 	</div>
 	<script type="text/javascript" src='js/jquery.js'></script>
@@ -48,27 +38,82 @@
 			var timestamp = Date.parse(new Date());
 			var nonceStr = 'ibuaiVcKdpRxkhJA';
 			var appid = 'wx9d3fe63d78f398ea';
-			var url ='http://139.129.26.67:8000/';
-			
-			$.ajax({
-				url: './getapitiket',
-				dataType: 'text',
-				success: function (data) {
-					console.log(data);
-					//                             
-					wx.config({
-					    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-					    appId: appid, // 必填，公众号的唯一标识
-					    timestamp: timestamp, // 必填，生成签名的时间戳
-					    nonceStr: nonceStr, // 必填，生成签名的随机串
-					    signature: data,// 必填，签名，见附录1
-					    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-					});
-				},
-				error: function () {
+			var url ='http://www.ecafe.pub/';
 
-				}
-			});
+			var $commitOrder = $("#commit_order");
+			
+			var init = function () {
+				$.ajax({
+					url: './signature',
+					dataType: 'text',
+					success: function (data) {
+						//   
+						console.log(data);                          
+						wx.config({
+						    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+						    appId: appid, // 必填，公众号的唯一标识
+						    timestamp: timestamp, // 必填，生成签名的时间戳
+						    nonceStr: nonceStr, // 必填，生成签名的随机串
+						    signature: data,// 必填，签名，见附录1
+						    jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+						});
+
+						wx.ready(function () {
+							// check checkJsApi
+							 wx.checkJsApi({
+						      jsApiList: ['chooseWXPay'],
+						      success: function (res) {
+						      	alert(res.errMsg);
+						      	var errMsg = res.errMsg;
+						      	var status = errMsg.split(":")[1];
+						      	// 支持接口
+						      	if (status === 'ok') {
+						      		//weiPay(timestamp, nonceStr, );
+						      	}
+						      },
+						      error: function (res) {
+						      	console.log('errrrrr');
+						      	alert('err'+res);
+						      }
+						    });
+						});
+						wx.error(function (res) {
+							console.log('wx-error'+res);
+							alert('wx-error'+res);
+						});
+					},
+					error: function () {
+						console.log('error');
+					}
+				});
+			};
+			
+			// //生成统一订单并返回prepay_id等
+			// $commitOrder.click(function () {
+			// 	$.ajax({
+			// 		url: './getOpenid',
+			// 		dataType: 'text',
+			// 		success: function (data) {
+			// 			console.log(data);
+			// 		},
+			// 		error: function (msg) {return false;}
+			// 	});
+			// });
+
+			function weiPay (ts, ns, st, ps) {
+				wx.chooseWXPay({
+				    timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+				    nonceStr: '', // 支付签名随机串，不长于 32 位
+				    package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+				    signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+				    paySign: '', // 支付签名
+				    success: function (res) {
+				        // 支付成功后的回调函数
+				    }
+				});
+			}
+
+			init();
 		});
 	</script>
 </body>
