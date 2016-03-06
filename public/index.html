@@ -16,6 +16,7 @@
 			<p><span>香蕉: </span>20元</p>
 			<p><span style='font-weight: 600;'>共计: </span>30元</p>
 			<a href='http://www.ecafe.pub/getCode' id='commit_order'>提交订单</a>
+			<!-- <input type='button' value='提交订单' id='commit_order'/> -->
 		</section> 
 		<!--点击发起支付-->
 		<section>
@@ -88,13 +89,21 @@
 				});
 			};
 			
-			// //生成统一订单并返回prepay_id等
+			//生成统一订单并返回prepay_id等
 			// $commitOrder.click(function () {
 			// 	$.ajax({
-			// 		url: './getOpenid',
+			// 		url: './getCode',
 			// 		dataType: 'text',
 			// 		success: function (data) {
-			// 			console.log(data);
+			// 			alert(data);
+			// 			$.ajax({
+			// 				url: data,
+			// 				dataType: 'JSON',
+			// 				success: function (data2) {
+			// 					alert(data2);
+			// 				},
+			// 				error: function () {return false;}
+			// 			});
 			// 		},
 			// 		error: function (msg) {return false;}
 			// 	});

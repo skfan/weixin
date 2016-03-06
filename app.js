@@ -64,7 +64,7 @@ app.get('/createOrder', function (req, res, next) {
 	order.getOppenid(req.query.code, function (oppenid) {
 
 		order.createSign(oppenid, req.connection.remoteAddress,function (data) {
-			res.type('text/xml');
+			res.type('text/plain');
 			res.status(200);
 			res.send(data);
 		});
