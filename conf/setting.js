@@ -6,15 +6,14 @@ module.exports = {
 	"keyWord" : "yahuiweixinpay20160302intelcd123",
 	"timeStamp" : Date.parse(new Date()).toString(),
 	"nonceStr" : "5K8264ILTKCH16CQ2502SI8ZNMTM67VS",
-	"url" : "http://www.ecafe.pub/",
+	"url" : "",
 	"token" : "skfan",
 
 	"hostName" : "api.weixin.qq.com",
-
 	// sign
-	"mch_id" : "1238324302",
-	"spbill_create_ip" : "139.129.26.67",
-	"notify_url" : "http://www.ecafe.pub/notify",
+	"mch_id" : "",
+	"spbill_create_ip" : "",
+	"notify_url" : "",
 	"trade_type" : "JSAPI"
 
 };
