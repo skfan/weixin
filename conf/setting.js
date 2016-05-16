@@ -1,13 +1,13 @@
 module.exports = {
 
 	//weipay
-	"appId" : "wxa352a8a79dfb43dc",
-	"appSecret" : "dec403304454432914877d162977e31b",
-	"keyWord" : "yahuiweixinpay20160302intelcd123",
+	"appId" : "",
+	"appSecret" : "",
+	"keyWord" : "",
 	"timeStamp" : Date.parse(new Date()).toString(),
-	"nonceStr" : "5K8264ILTKCH16CQ2502SI8ZNMTM67VS",
+	"nonceStr" : "",
 	"url" : "",
-	"token" : "skfan",
+	"token" : "",
 
 	"hostName" : "api.weixin.qq.com",
 	// sign
